@@ -55,8 +55,8 @@ int opcode_is_valid(char *lineptr)
 	int i = 0;
 
 	opcode = strtok(lineptr, " \n");
-	opcode_value = strtok(NULL, " ");
-
+	opcode_value = strtok(NULL, " \n");
+	printf("value: %s\n", opcode_value);
 	while (curr_opcodes[i].opcode)
 	{
 		if (strcmp(opcode, curr_opcodes[i].opcode) == 0)

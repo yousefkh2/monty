@@ -20,7 +20,7 @@ stack_t *stack_top = NULL;
  * main - Entry point
  *
  * @argc: number of program arguments
- * @argv: pointer to array of arguments
+ * @argv: pointer to arOIray of arguments
  * Return: (int) 1 if success else 0
  */
 

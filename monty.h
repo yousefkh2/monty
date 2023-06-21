@@ -5,8 +5,7 @@
 #include <stdio.h>
 #include <string.h>
 
-
-/* extern stack_t *stack_last;
+#define UNUSED __attribute__((unused))
 
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
@@ -50,7 +49,13 @@ char *handle_line(FILE *file_stream);
 int line_is_valid(char *lineptr);
 int opcode_is_valid(char *opcode);
 void (*get_op_func(char *opcode))(stack_t **, unsigned int);
+
 void push_f(stack_t **stack, unsigned int line);
 void pall_f(stack_t **staci, unsigned int line);
-
+void pint_f(stack_t **staci, unsigned int line);
+void pop_f(stack_t **staci, unsigned int line);
+void swap_f(stack_t **staci, unsigned int line);
+void add_f(stack_t **staci, unsigned int line);
+void nop_f(stack_t **staci, unsigned int line);
+void free_stack(stack_t **stack);
 #endif
