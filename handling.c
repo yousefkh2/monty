@@ -1,5 +1,13 @@
 #include "monty.h"
 
+/**
+ * handle_args - check argument validation
+ *
+ * @argc: argument counter
+ * @argv: array of arguments
+ * Return: pointer to file name
+ */
+
 char *handle_args(int argc, char **argv)
 {
 	if (argc != 2)
@@ -9,6 +17,13 @@ char *handle_args(int argc, char **argv)
 	}
 	return (*(argv + 1));
 }
+
+/**
+ * handle_file - handling opening file
+ *
+ * @file_name: pointer to file name
+ * Return: pointer to opening file stream
+ */
 
 FILE *handle_file(char *file_name)
 {
@@ -23,6 +38,13 @@ FILE *handle_file(char *file_name)
 	return (file_stream);
 }
 
+/**
+ * handle_line - read line from file stream
+ *
+ * @file_stream: pointer to file stream
+ * Return: pointer to line string
+ */
+
 char *handle_line(FILE *file_stream)
 {
 	char *lineptr;
@@ -35,6 +57,13 @@ char *handle_line(FILE *file_stream)
 	line_number++;
 	return (lineptr);
 }
+
+/**
+ * get_op_func - get opcode function
+ *
+ * @lineptr: pointer to current line
+ * Return: pointer to opcode function
+ */
 
 void (*get_op_func(char *lineptr))(stack_t **, unsigned int)
 {

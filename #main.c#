@@ -28,7 +28,7 @@ int main(int argc, char **argv)
 {
 	char *file_name;
 	FILE *file_stream;
-	char *file_line;
+	char buff[100];
 	void (*op_func)(stack_t **, unsigned int);
 
 	file_name = handle_args(argc, argv);
@@ -36,7 +36,7 @@ int main(int argc, char **argv)
 
 	while (1)
 	{
-		file_line = handle_line(file_stream);
+		file_line = handle_line(file_stream, buff);
 
 
 		if (*file_line == '\n')
