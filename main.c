@@ -38,9 +38,9 @@ int main(int argc, char **argv)
 		file_line = handle_line(file_stream);
 		if (!*file_line)
 			break;
-		if (*file_line != '\n')
+		if (*opcode != '\n')
 		{
-			op_func = get_op_func(file_line);
+			op_func = get_op_func();
 			op_func(&stack_top, line_number);
 			free(file_line);
 		} else

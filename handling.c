@@ -47,14 +47,22 @@ FILE *handle_file(char *file_name)
 
 char *handle_line(FILE *file_stream)
 {
+	char *lineptr;
 	size_t buff_size = 0;
 	ssize_t bytesread;
+	int i = 0;
 
-	bytesread = getline(&opcode, &buff_size, file_stream);
+	bytesread = getline(&lineptr, &buff_size, file_stream);
 	if (bytesread == -1)
 		*opcode = '\0';
 	line_number++;
-	return (opcode);
+
+	strtok(lineptr, " \n");
+	opcode_value = strtok(NULL, " \n");
+	while (*(lineptr + i) == ' ')
+		i++;
+	opcode = (lineptr + i);
+	return (lineptr);
 }
 
 /**
@@ -64,13 +72,10 @@ char *handle_line(FILE *file_stream)
  * Return: pointer to opcode function
  */
 
-void (*get_op_func(char *opcode))(stack_t **, unsigned int)
+void (*get_op_func())(stack_t **, unsigned int)
 {
 	instruction_t *curr_opcodes = opcodes_arr;
 	int i = 0;
-
-	strtok(opcode, " \n");
-	opcode_value = strtok(NULL, " \n");
 
 	while (curr_opcodes[i].opcode)
 	{
@@ -78,10 +83,5 @@ void (*get_op_func(char *opcode))(stack_t **, unsigned int)
 			return (curr_opcodes[i].f);
 		i++;
 	}
-	fprintf(stderr, "L%d: unknown instruction %s\n",
-		line_number, opcode);
-	free(opcode);
-	exit(EXIT_FAILURE);
-
-	return (0);
+	return (NULL);
 }

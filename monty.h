@@ -51,7 +51,7 @@ FILE *handle_file(char *file_name);
 char *handle_line(FILE *file_stream);
 int line_is_valid(char *lineptr);
 int opcode_is_valid(char *opcode);
-void (*get_op_func(char *opcode))(stack_t **, unsigned int);
+void (*get_op_func())(stack_t **, unsigned int);
 
 void push_f(stack_t **stack, unsigned int line);
 void pall_f(stack_t **staci, unsigned int line);
