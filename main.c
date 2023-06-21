@@ -15,7 +15,6 @@ char *opcode_value = NULL;
 stack_t *stack_top = NULL;
 char *opcode = NULL;
 
-
 /**
  * main - Entry point
  *
@@ -39,11 +38,13 @@ int main(int argc, char **argv)
 		file_line = handle_line(file_stream);
 		if (!*file_line)
 			break;
-
-		op_func = get_op_func(file_line);
-		op_func(&stack_top, line_number);
-		free(file_line);
-
+		if (*file_line != '\n')
+		{
+			op_func = get_op_func(file_line);
+			op_func(&stack_top, line_number);
+			free(file_line);
+		} else
+			free(file_line);
 	};
 	free(file_line);
 	fclose(file_stream);

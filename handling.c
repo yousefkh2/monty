@@ -60,7 +60,7 @@ char *handle_line(FILE *file_stream)
 /**
  * get_op_func - get opcode function
  *
- * @lineptr: pointer to current line
+ * @opcode: pointer to current line
  * Return: pointer to opcode function
  */
 
