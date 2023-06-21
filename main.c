@@ -37,21 +37,16 @@ int main(int argc, char **argv)
 	while (1)
 	{
 		file_line = handle_line(file_stream);
-		if (*file_line == '\n')
-		{
-			free(file_line);
-			continue;
-		}
-		else if (!*file_line)
-		{
-			free(file_line);
+		if (!*file_line)
 			break;
-		}
+
 		op_func = get_op_func(file_line);
 		op_func(&stack_top, line_number);
 		free(file_line);
 
 	};
+	free(file_line);
+	fclose(file_stream);
 	free_stack(&stack_top);
 	return (1);
 }
