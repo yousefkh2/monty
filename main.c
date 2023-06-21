@@ -2,8 +2,8 @@
 
 instruction_t opcodes_arr[] = {
 	{"push", push_f},
-	{"pull", pall_f},
-	NULL
+	{"pall", pall_f},
+	{NULL, NULL}
 };
 unsigned int line_number = 0;
 char *opcode_value = NULL;
@@ -30,8 +30,9 @@ int main(int argc, char **argv)
 	while (1)
 	{
 		file_line = handle_line(file_stream);
-		printf("current line: %s\n", file_line);
-		printf("current line value: %s", opcode_value);
+		printf("line: %s\n", file_line);
+		get_op_func(file_line)(&stack_top, line_number);
+		/* pall_f(&stack_top, line_number); */
 	};
 
 }

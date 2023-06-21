@@ -57,12 +57,25 @@ int opcode_is_valid(char *lineptr)
 	strtok(lineptr, " ");
 	opcode_value = strtok(NULL, " ");
 
-	while (i < OPCODE_ARR_LENGTH)
+	while (curr_opcodes[i].opcode)
 	{
 		if (strcmp(lineptr, curr_opcodes[i].opcode) == 0)
 			return (1);
-		curr_opcodes++;
 		i++;
 	}
 	return (0);
+}
+
+void (*get_op_func(char *opcode))(stack_t **, unsigned int)
+{
+	instruction_t *curr_opcodes = opcodes_arr;
+	int i = 0;
+
+	while (curr_opcodes[i].opcode)
+	{
+		if (strcmp(opcode, curr_opcodes[i].opcode) == 0)
+			return (curr_opcodes[i].f);
+		i++;
+	}
+	return (NULL);
 }
