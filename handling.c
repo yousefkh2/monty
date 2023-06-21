@@ -25,22 +25,16 @@ FILE *handle_file(char *file_name)
 
 char *handle_line(FILE *file_stream)
 {
-	char *lineptr = NULL;
+	char *lineptr;
 	size_t buff_size = 0;
-	ssize_t bytes_read;
+	ssize_t bytesread;
 
-	bytes_read = getline(&lineptr, &buff_size, file_stream);
-	if (bytes_read == -1)
-	{
-		printf("End of file");
-		free(lineptr);
-		return (NULL);
-	}
+	bytesread = getline(&lineptr, &buff_size, file_stream);
 	line_number++;
 
-	if (!opcode_is_valid(lineptr))
+	if (bytesread != -1 && !opcode_is_valid(lineptr))
 	{
-		fprintf(stderr, "L%d: unknown instruction %s",
+		fprintf(stderr, "L%d: unknown instruction %s\n",
 			line_number, lineptr);
 		free(lineptr);
 		exit(EXIT_FAILURE);
@@ -52,14 +46,15 @@ char *handle_line(FILE *file_stream)
 int opcode_is_valid(char *lineptr)
 {
 	instruction_t *curr_opcodes = opcodes_arr;
+	char *opcode;
 	int i = 0;
 
-	strtok(lineptr, " ");
+	opcode = strtok(lineptr, " ");
 	opcode_value = strtok(NULL, " ");
 
 	while (curr_opcodes[i].opcode)
 	{
-		if (strcmp(lineptr, curr_opcodes[i].opcode) == 0)
+		if (strcmp(opcode, curr_opcodes[i].opcode) == 0)
 			return (1);
 		i++;
 	}

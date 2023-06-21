@@ -30,7 +30,11 @@ int main(int argc, char **argv)
 	while (1)
 	{
 		file_line = handle_line(file_stream);
-		printf("line: %s\n", file_line);
+		if (!*file_line)
+		{
+			printf("good luck\n");
+			break;
+		}
 		get_op_func(file_line)(&stack_top, line_number);
 		/* pall_f(&stack_top, line_number); */
 	};
