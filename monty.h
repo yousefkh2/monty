@@ -3,7 +3,9 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
+#define OPCODE_ARR_LENGTH 2
 
 /* extern stack_t *stack_last;
 
@@ -38,8 +40,17 @@ typedef struct instruction_s
         void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
+extern stack_t *stack_top;
+extern instruction_t opcodes_arr[];
+extern unsigned int line_number;
+extern char *opcode_value;
+
 char *handle_args(int argc, char **argv);
 FILE *handle_file(char *file_name);
+char *handle_line(FILE *file_stream);
+int line_is_valid(char *lineptr);
+int opcode_is_valid(char *opcode);
 void push_f(stack_t **stack, unsigned int line);
+void pall_f(stack_t **staci, unsigned int line);
 
 #endif
