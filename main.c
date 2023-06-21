@@ -24,19 +24,19 @@ int main(int argc, char **argv)
 	char *file_name;
 	FILE *file_stream;
 	char *file_line;
+	void (*op_func)(stack_t **, unsigned int);
 
 	file_name = handle_args(argc, argv);
 	file_stream = handle_file(file_name);
 	while (1)
 	{
 		file_line = handle_line(file_stream);
-		if (!*file_line)
-		{
-			printf("good luck\n");
+		if (file_line == NULL)
 			break;
-		}
-		get_op_func(file_line)(&stack_top, line_number);
-		/* pall_f(&stack_top, line_number); */
+		op_func = get_op_func(file_line);
+		free(file_line);
+		op_func(&stack_top, line_number);
 	};
+
 
 }

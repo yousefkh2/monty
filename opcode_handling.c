@@ -7,15 +7,14 @@ void push_f(stack_t **stack, unsigned int line_number)
 	if (atoi(opcode_value) == 0)
 	{
 		fprintf(stderr, "L%d: usage: push integer\n", line_number);
-		/* free(); */
 		exit(EXIT_FAILURE);
 	}
 
 	node = malloc(sizeof(stack_t));
 	if (node == NULL)
 	{
-		/* free() */
 		fprintf(stderr, "Error: malloc failed\n");
+		exit(EXIT_FAILURE);
 	}
 
 	node->n = atoi(opcode_value);

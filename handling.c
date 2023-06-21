@@ -30,13 +30,18 @@ char *handle_line(FILE *file_stream)
 	ssize_t bytesread;
 
 	bytesread = getline(&lineptr, &buff_size, file_stream);
+	if (bytesread == -1)
+	{
+		free(lineptr);
+		return (NULL);
+	}
 	line_number++;
 
 	if (bytesread != -1 && !opcode_is_valid(lineptr))
 	{
 		fprintf(stderr, "L%d: unknown instruction %s\n",
 			line_number, lineptr);
-		free(lineptr);
+	 	free(lineptr);
 		exit(EXIT_FAILURE);
 	}
 
@@ -49,7 +54,7 @@ int opcode_is_valid(char *lineptr)
 	char *opcode;
 	int i = 0;
 
-	opcode = strtok(lineptr, " ");
+	opcode = strtok(lineptr, " \n");
 	opcode_value = strtok(NULL, " ");
 
 	while (curr_opcodes[i].opcode)
