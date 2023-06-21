@@ -44,6 +44,7 @@ extern stack_t *stack_top;
 extern instruction_t opcodes_arr[];
 extern unsigned int line_number;
 extern char *opcode_value;
+extern char *opcode;
 
 char *handle_args(int argc, char **argv);
 FILE *handle_file(char *file_name);

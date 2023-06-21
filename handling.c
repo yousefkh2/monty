@@ -68,7 +68,6 @@ char *handle_line(FILE *file_stream)
 void (*get_op_func(char *lineptr))(stack_t **, unsigned int)
 {
 	instruction_t *curr_opcodes = opcodes_arr;
-	char *opcode;
 	int i = 0;
 
 	opcode = strtok(lineptr, " \n");

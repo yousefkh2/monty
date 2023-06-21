@@ -13,7 +13,7 @@ instruction_t opcodes_arr[] = {
 unsigned int line_number = 0;
 char *opcode_value = NULL;
 stack_t *stack_top = NULL;
-
+char *opcode = NULL;
 
 
 /**
@@ -37,12 +37,16 @@ int main(int argc, char **argv)
 	while (1)
 	{
 		file_line = handle_line(file_stream);
-
-
 		if (*file_line == '\n')
+		{
+			free(file_line);
 			continue;
+		}
 		else if (!*file_line)
+		{
+			free(file_line);
 			break;
+		}
 		op_func = get_op_func(file_line);
 		op_func(&stack_top, line_number);
 		free(file_line);
