@@ -45,7 +45,7 @@ void pint_f(stack_t **stack, unsigned int line_number)
 	}
 }
 
-void pop_f(stack_t **stack, int line_number)
+void pop_f(UNUSED stack_t **stack, unsigned int line_number)
 {
 	stack_t *tmp;
 	if (!stack_top)

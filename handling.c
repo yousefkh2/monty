@@ -31,24 +31,12 @@ char *handle_line(FILE *file_stream)
 
 	bytesread = getline(&lineptr, &buff_size, file_stream);
 	if (bytesread == -1)
-	{
-		free(lineptr);
-		return (NULL);
-	}
+		*lineptr = '\0';
 	line_number++;
-
-	if (bytesread != -1 && !opcode_is_valid(lineptr))
-	{
-		fprintf(stderr, "L%d: unknown instruction %s\n",
-			line_number, lineptr);
-	 	free(lineptr);
-		exit(EXIT_FAILURE);
-	}
-
 	return (lineptr);
 }
 
-int opcode_is_valid(char *lineptr)
+void (*get_op_func(char *lineptr))(stack_t **, unsigned int)
 {
 	instruction_t *curr_opcodes = opcodes_arr;
 	char *opcode;
@@ -56,20 +44,6 @@ int opcode_is_valid(char *lineptr)
 
 	opcode = strtok(lineptr, " \n");
 	opcode_value = strtok(NULL, " \n");
-	printf("value: %s\n", opcode_value);
-	while (curr_opcodes[i].opcode)
-	{
-		if (strcmp(opcode, curr_opcodes[i].opcode) == 0)
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
-void (*get_op_func(char *opcode))(stack_t **, unsigned int)
-{
-	instruction_t *curr_opcodes = opcodes_arr;
-	int i = 0;
 
 	while (curr_opcodes[i].opcode)
 	{
@@ -77,5 +51,10 @@ void (*get_op_func(char *opcode))(stack_t **, unsigned int)
 			return (curr_opcodes[i].f);
 		i++;
 	}
-	return (NULL);
+	fprintf(stderr, "L%d: unknown instruction %s\n",
+		line_number, lineptr);
+	free(lineptr);
+	exit(EXIT_FAILURE);
+
+	return (0);
 }

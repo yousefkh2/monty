@@ -20,7 +20,7 @@ stack_t *stack_top = NULL;
  * main - Entry point
  *
  * @argc: number of program arguments
- * @argv: pointer to array of arguments
+ * @argv: pointer to arOIray of arguments
  * Return: (int) 1 if success else 0
  */
 
@@ -33,16 +33,21 @@ int main(int argc, char **argv)
 
 	file_name = handle_args(argc, argv);
 	file_stream = handle_file(file_name);
+
 	while (1)
 	{
 		file_line = handle_line(file_stream);
-		if (file_line == NULL)
+
+		if (*file_line == '\n')
+			continue;
+		else if (!*file_line)
 			break;
-		op_func = get_op_func(file_line);
-		op_func(&stack_top, line_number);
-		free(file_line);
-
+		else
+		{
+			op_func = get_op_func(file_line);
+			op_func(&stack_top, line_number);
+			free(file_line);
+		}
 	};
-
-
+	free_stack(&stack_top);
 }
