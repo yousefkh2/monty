@@ -30,8 +30,8 @@ int main(int argc, char **argv)
 	while (1)
 	{
 		file_line = handle_line(file_stream);
-		printf("current line: %s", file_line);
-		printf("current line value: %d", opcode_value);
+		printf("current line: %s\n", file_line);
+		printf("current line value: %s", opcode_value);
 	};
 
 }

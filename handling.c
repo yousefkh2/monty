@@ -32,6 +32,7 @@ char *handle_line(FILE *file_stream)
 	bytes_read = getline(&lineptr, &buff_size, file_stream);
 	if (bytes_read == -1)
 	{
+		printf("End of file");
 		free(lineptr);
 		return (NULL);
 	}
