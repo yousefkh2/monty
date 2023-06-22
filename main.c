@@ -8,6 +8,7 @@ instruction_t opcodes_arr[] = {
 	{"swap", swap_f},
 	{"add", add_f},
 	{"sub", sub_f},
+	{"div", div_f},
 	{"nop", nop_f},
 	{"\n", nop_f},
 	{NULL, NULL}

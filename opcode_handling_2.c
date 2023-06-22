@@ -43,7 +43,7 @@ void nop_f(UNUSED stack_t **stack, UNUSED unsigned int line_number)
 
 
 /**
- * sub_f - sum last two node and remove last node
+ * sub_f - sub last two node and remove last node
  *
  * @stack: pointer to top node of stack
  * @line_number: current opcode line number
@@ -71,6 +71,39 @@ void sub_f(stack_t **stack, unsigned int line_number)
 	stack_top = prev_last;
 }
 
+/**
+ * div_f - divide last two node and remove last node
+ *
+ * @stack: pointer to top node of stack
+ * @line_number: current opcode line number
+ * Return: None
+ */
+
+void div_f(stack_t **stack, unsigned int line_number)
+{
+	stack_t *last = *stack;
+	stack_t *prev_last;
+
+	if (last)
+		prev_last = last->prev;
+	if (!last || !prev_last)
+	{
+		fprintf(stderr, "L%d: can't div, stack too short\n",
+			line_number);
+		exit_prog();
+		exit(EXIT_FAILURE);
+	}
+	if (last->n == 0)
+	{
+		fprintf(stderr, "L%d: division by zero\n", line_number);
+		exit_prog();
+		exit(EXIT_FAILURE);
+	}
+	prev_last->n /= last->n;
+	prev_last->next = NULL;
+	free(last);
+	stack_top = prev_last;
+}
 
 /**
  * free_stack - free linkedlist stack
