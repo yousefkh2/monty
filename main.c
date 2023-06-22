@@ -10,7 +10,9 @@ instruction_t opcodes_arr[] = {
 	{"sub", sub_f},
 	{"div", div_f},
 	{"mul", mul_f},
+	{"mod", mod_f},
 	{"nop", nop_f},
+	{"#", nop_f},
 	{"\n", nop_f},
 	{NULL, NULL}
 };
