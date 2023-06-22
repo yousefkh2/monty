@@ -1,33 +1,24 @@
 #include "monty.h"
 
 /**
- * handle_args - check argument validation
+ * handle_file - handling opening file
  *
- * @argc: argument counter
- * @argv: array of arguments
- * Return: pointer to file name
+ * @argc: number of arguments
+ * @argv: array of program argumnets
+ * Return: pointer to opening file stream
  */
 
-char *handle_args(int argc, char **argv)
+FILE *handle_file(int argc, char **argv)
 {
+	FILE *file_stream;
+	char *file_name;
+
 	if (argc != 2)
 	{
 		fprintf(stderr, "USAGE: monty file\n");
 		exit(EXIT_FAILURE);
 	}
-	return (*(argv + 1));
-}
-
-/**
- * handle_file - handling opening file
- *
- * @file_name: pointer to file name
- * Return: pointer to opening file stream
- */
-
-FILE *handle_file(char *file_name)
-{
-	FILE *file_stream;
+	file_name = *(argv + 1);
 
 	file_stream = fopen(file_name, "r");
 	if (file_stream == NULL)
@@ -54,7 +45,13 @@ char *handle_line(FILE *file_stream)
 
 	bytesread = getline(&lineptr, &buff_size, file_stream);
 	if (bytesread == -1)
-		*opcode = '\0';
+	{
+		free(lineptr);
+		if (stack_top)
+			free_stack(&stack_top);
+		fclose(file_stream);
+		exit(EXIT_SUCCESS);
+	}
 	line_number++;
 
 	strtok(lineptr, " \n");
@@ -62,6 +59,7 @@ char *handle_line(FILE *file_stream)
 	while (*(lineptr + i) == ' ')
 		i++;
 	opcode = (lineptr + i);
+
 	return (lineptr);
 }
 

@@ -8,13 +8,14 @@ instruction_t opcodes_arr[] = {
 	{"swap", swap_f},
 	{"add", add_f},
 	{"nop", nop_f},
+	{"\n", nop_f},
 	{NULL, NULL}
 };
 unsigned int line_number = 0;
 char *opcode_value = NULL;
 stack_t *stack_top = NULL;
 char *opcode = NULL;
-
+cmd_t cmd = {NULL, NULL};
 /**
  * main - Entry point
  *
@@ -25,37 +26,14 @@ char *opcode = NULL;
 
 int main(int argc, char **argv)
 {
-	char *file_name;
 	FILE *file_stream;
-	char *file_line;
-	void (*op_func)(stack_t **, unsigned int);
 
-	file_name = handle_args(argc, argv);
-	file_stream = handle_file(file_name);
-
+	file_stream = handle_file(argc, argv);
+	cmd.file_stream = file_stream;
 	while (1)
 	{
-		file_line = handle_line(file_stream);
-
-		if (!*file_line)
-			break;
-		if (*opcode != '\n')
-		{
-			op_func = get_op_func();
-			if (!op_func)
-			{
-				fprintf(stderr, "L%d: unknown instruction %s\n",
-					line_number, opcode);
-				free(file_line);
-				exit(EXIT_FAILURE);
-			}
-				op_func(&stack_top, line_number);
-			free(file_line);
-		} else
-			free(file_line);
+		run(cmd);
+		free(cmd.file_line);
 	};
-	free(file_line);
-	fclose(file_stream);
-	free_stack(&stack_top);
 	return (1);
 }

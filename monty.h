@@ -20,9 +20,9 @@
  */
 typedef struct stack_s
 {
-        int n;
-        struct stack_s *prev;
-        struct stack_s *next;
+	int n;
+	struct stack_s *prev;
+	struct stack_s *next;
 } stack_t;
 
 
@@ -36,22 +36,37 @@ typedef struct stack_s
  */
 typedef struct instruction_s
 {
-        char *opcode;
-        void (*f)(stack_t **stack, unsigned int line_number);
+	char *opcode;
+	void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
+
+/**
+ * struct cmd_s - user command
+ * @file_line: current file line
+ * @file_stream: pointer to file stream
+ *
+ * Description: N\A
+ */
+
+typedef struct cmd_s
+{
+	char *file_line;
+	FILE *file_stream;
+} cmd_t;
 
 extern stack_t *stack_top;
 extern instruction_t opcodes_arr[];
 extern unsigned int line_number;
 extern char *opcode_value;
 extern char *opcode;
+extern cmd_t cmd;
 
-char *handle_args(int argc, char **argv);
-FILE *handle_file(char *file_name);
+FILE *handle_file(int argc, char **argv);
 char *handle_line(FILE *file_stream);
-int line_is_valid(char *lineptr);
-int opcode_is_valid(char *opcode);
 void (*get_op_func())(stack_t **, unsigned int);
+
+void run(void);
+void exit_prog(void);
 
 void push_f(stack_t **stack, unsigned int line);
 void pall_f(stack_t **staci, unsigned int line);

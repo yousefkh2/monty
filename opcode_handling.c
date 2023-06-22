@@ -15,15 +15,16 @@ void push_f(stack_t **stack, unsigned int line_number)
 	if (atoi(opcode_value) == 0 && *opcode_value != '0')
 	{
 		fprintf(stderr, "L%d: usage: push integer\n", line_number);
-		free(opcode);
+		exit_prog();
 		exit(EXIT_FAILURE);
 	}
 
 	node = malloc(sizeof(stack_t));
 	if (node == NULL)
 	{
-		free(opcode);
 		fprintf(stderr, "Error: malloc failed\n");
+		exit_prog();
+		exit(EXIT_FAILURE);
 	}
 
 	node->n = atoi(opcode_value);
