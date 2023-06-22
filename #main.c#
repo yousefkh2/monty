@@ -49,7 +49,7 @@ int main(int argc, char **argv)
 				free(file_line);
 				exit(EXIT_FAILURE);
 			}
-				op_func(&stack_top, line_number);
+			op_func(&stack_top, line_number);
 			free(file_line);
 		} else
 			free(file_line);

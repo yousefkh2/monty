@@ -12,7 +12,7 @@ void push_f(stack_t **stack, unsigned int line_number)
 {
 	stack_t *node;
 
-	if (atoi(opcode_value) == 0)
+	if (atoi(opcode_value) == 0 && *opcode_value != '0')
 	{
 		fprintf(stderr, "L%d: usage: push integer\n", line_number);
 		free(opcode);
@@ -59,9 +59,9 @@ void pall_f(stack_t **stack, UNUSED unsigned int line_number)
  * Return: None
  */
 
-void pint_f(UNUSED stack_t **stack, unsigned int line_number)
+void pint_f(stack_t **stack, unsigned int line_number)
 {
-	if (stack_top)
+	if (*stack)
 		printf("%d\n", stack_top->n);
 	else
 	{
