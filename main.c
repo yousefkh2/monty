@@ -32,7 +32,7 @@ int main(int argc, char **argv)
 	cmd.file_stream = file_stream;
 	while (1)
 	{
-		run(cmd);
+		run();
 		free(cmd.file_line);
 	};
 	return (1);
