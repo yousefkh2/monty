@@ -73,10 +73,13 @@ void (*get_op_func())(stack_t **, unsigned int)
 {
 	instruction_t *curr_opcodes = opcodes_arr;
 	int i = 0;
+	size_t str_len = strlen(opcode);
 
+	if (*opcode == '#')
+		str_len = 1;
 	while (curr_opcodes[i].opcode)
 	{
-		if (strcmp(opcode, curr_opcodes[i].opcode) == 0)
+		if (strncmp(opcode, curr_opcodes[i].opcode, str_len) == 0)
 			return (curr_opcodes[i].f);
 		i++;
 	}

@@ -13,7 +13,6 @@ void run(void)
 
 	file_line = handle_line(cmd.file_stream);
 	cmd.file_line = file_line;
-
 	op_func = get_op_func();
 	if (!op_func)
 	{
