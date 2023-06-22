@@ -8,9 +8,9 @@
  * Return: None
  */
 
-void add_f(stack_t **stack, unsigned int line_number)
+void add_f(UNUSED stack_t **stack, unsigned int line_number)
 {
-	stack_t *last = *stack;
+	stack_t *last = tail;
 	stack_t *prev_last;
 
 	if (last)
@@ -25,8 +25,10 @@ void add_f(stack_t **stack, unsigned int line_number)
 
 	prev_last->n += last->n;
 	prev_last->next = NULL;
+	if (!stack_top->next)
+		stack_top = prev_last;
 	free(last);
-	stack_top = prev_last;
+
 }
 
 /**
@@ -50,9 +52,9 @@ void nop_f(UNUSED stack_t **stack, UNUSED unsigned int line_number)
  * Return: None
  */
 
-void sub_f(stack_t **stack, unsigned int line_number)
+void sub_f(UNUSED stack_t **stack, unsigned int line_number)
 {
-	stack_t *last = *stack;
+	stack_t *last = tail;
 	stack_t *prev_last;
 
 	if (last)
@@ -67,8 +69,9 @@ void sub_f(stack_t **stack, unsigned int line_number)
 
 	prev_last->n -= last->n;
 	prev_last->next = NULL;
+	if (!stack_top->next)
+		stack_top = prev_last;
 	free(last);
-	stack_top = prev_last;
 }
 
 /**
@@ -101,8 +104,9 @@ void div_f(stack_t **stack, unsigned int line_number)
 	}
 	prev_last->n /= last->n;
 	prev_last->next = NULL;
+	if (!stack_top->next)
+		stack_top = prev_last;
 	free(last);
-	stack_top = prev_last;
 }
 
 /**
@@ -116,10 +120,16 @@ void free_stack(stack_t **stack)
 {
 	stack_t *curr = *stack;
 	stack_t *tmp;
+	int flag = 1;
 
+	if (curr && curr->next)
+		flag = 0;
 	while (curr)
 	{
-		tmp = curr->prev;
+		if (flag)
+			tmp = curr->prev;
+		else
+			tmp = curr->next;
 		free(curr);
 		curr = tmp;
 	}

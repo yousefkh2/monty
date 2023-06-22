@@ -32,6 +32,7 @@ int is_valid_integer(char *str)
 void push_f(stack_t **stack, unsigned int line_number)
 {
 	stack_t *node;
+	stack_t *top = *stack;
 
 	if (!is_valid_integer(opcode_value))
 	{
@@ -49,11 +50,27 @@ void push_f(stack_t **stack, unsigned int line_number)
 	}
 
 	node->n = atoi(opcode_value);
-	node->next = NULL;
-	node->prev = *stack;
-	if (*stack)
-		(*stack)->next = node;
-	*stack = node;
+	if (!top)
+	{
+		node->next = NULL;
+		node->prev = NULL;
+		tail = node;
+		head = node;
+	}
+	if (!top->next && top->prev)
+	{
+		node->next = NULL;
+		node->prev = top;
+		if (top)
+			top->next = node;
+	} else if (top->next && !top->prev)
+	{
+		node->next = top;
+		node->prev = NULL;
+		if (top)
+			top->prev = node;
+	}
+	stack_top = node;
 }
 
 /**
@@ -67,11 +84,17 @@ void push_f(stack_t **stack, unsigned int line_number)
 void pall_f(stack_t **stack, UNUSED unsigned int line_number)
 {
 	stack_t *curr = *stack;
+	int flag = 1;
 
+	if (curr && curr->next)
+		flag = 0;
 	while (curr)
 	{
 		printf("%d\n", curr->n);
-		curr = curr->prev;
+		if (flag)
+			curr = curr->prev;
+		else
+			curr = curr->next;
 	}
 }
 
@@ -109,14 +132,21 @@ void pop_f(stack_t **stack, unsigned int line_number)
 
 	if (!stack_top)
 	{
-		fprintf(stderr, "L%d: can't pop an empty stack\n", line_number);
+		fprintf(stderr, "L%d: can't pop an empty stack\n",
+			line_number);
 		exit_prog();
 		exit(EXIT_FAILURE);
 	}
-	stack_top = stack_top->prev;
-	if (stack_top)
-		stack_top->next = NULL;
+
+	if (tmp->next)
+	{
+		stack_top = tmp->next;
+		stack_top->prev = NULL;
+	} else
+	{
+		stack_top = tmp->prev;
+		if (stack_top)
+			stack_top->next = NULL;
+	}
 	free(tmp);
 }
-
-

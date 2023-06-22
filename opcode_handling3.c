@@ -10,7 +10,7 @@
 
 void mul_f(stack_t **stack, unsigned int line_number)
 {
-	stack_t *last = *stack;
+	stack_t *last = tail;
 	stack_t *prev_last;
 
 	if (last)
