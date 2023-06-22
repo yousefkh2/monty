@@ -67,6 +67,7 @@ void pint_f(stack_t **stack, unsigned int line_number)
 	else
 	{
 		fprintf(stderr, "L%d: can't pint, stack empty\n", line_number);
+		exit_prog();
 		exit(EXIT_FAILURE);
 	}
 }
@@ -86,6 +87,7 @@ void pop_f(stack_t **stack, unsigned int line_number)
 	if (!stack_top)
 	{
 		fprintf(stderr, "L%d: can't pop an empty stack\n", line_number);
+		exit_prog();
 		exit(EXIT_FAILURE);
 	}
 	stack_top = stack_top->prev;
@@ -111,6 +113,7 @@ void swap_f(stack_t **stack, unsigned int line_number)
 	{
 		fprintf(stderr, "L%d: can't swap, stack too short\n",
 			line_number);
+		exit_prog();
 		exit(EXIT_FAILURE);
 	}
 	prev_last->next = NULL;
