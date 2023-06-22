@@ -82,5 +82,6 @@ void mod_f(stack_t **stack, unsigned int line);
 void pchar_f(stack_t **stack, unsigned int line);
 void pstr_f(stack_t **stack, unsigned int line);
 void rotl_f(stack_t **stack, unsigned int line);
+void rotr_f(stack_t **stack, unsigned int line);
 void free_stack(stack_t **stack);
 #endif

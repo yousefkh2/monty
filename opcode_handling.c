@@ -51,6 +51,8 @@ void push_f(stack_t **stack, unsigned int line_number)
 	node->n = atoi(opcode_value);
 	node->next = NULL;
 	node->prev = *stack;
+	if (*stack)
+		(*stack)->next = node;
 	*stack = node;
 }
 
