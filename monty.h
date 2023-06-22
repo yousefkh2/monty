@@ -75,5 +75,6 @@ void pop_f(stack_t **staci, unsigned int line);
 void swap_f(stack_t **staci, unsigned int line);
 void add_f(stack_t **staci, unsigned int line);
 void nop_f(stack_t **staci, unsigned int line);
+void sub_f(stack_t **stack, unsigned int line);
 void free_stack(stack_t **stack);
 #endif

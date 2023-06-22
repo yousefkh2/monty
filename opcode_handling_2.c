@@ -51,14 +51,15 @@ void nop_f(UNUSED stack_t **stack, UNUSED unsigned int line_number)
 void sub_f(stack_t **stack, unsigned int line_number)
 {
 	stack_t *last = *stack;
-	stack_t *prev_last = last->prev;
+	stack_t *prev_last;
 
+	if (last)
+		prev_last = last->prev;
 	if (!last || !prev_last)
 	{
 		fprintf(stderr, "L%d: can't sub, stack too short\n",
 			line_number);
 		exit_prog();
-		free(opcode);
 		exit(EXIT_FAILURE);
 	}
 

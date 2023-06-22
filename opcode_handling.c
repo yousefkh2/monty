@@ -107,8 +107,10 @@ void pop_f(stack_t **stack, unsigned int line_number)
 void swap_f(stack_t **stack, unsigned int line_number)
 {
 	stack_t *last = *stack;
-	stack_t *prev_last = last->prev;
+	stack_t *prev_last;
 
+	if (last)
+		prev_last = last->prev;
 	if (!last || !prev_last)
 	{
 		fprintf(stderr, "L%d: can't swap, stack too short\n",
