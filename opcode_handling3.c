@@ -63,3 +63,33 @@ void mod_f(stack_t **stack, unsigned int line_number)
 	free(last);
 	stack_top = prev_last;
 }
+
+/**
+ * swap_f - swap last top two nodes
+ *
+ * @stack: pointer to top node of stack
+ * @line_number: current opcode line number
+ * Return: None
+ */
+
+void swap_f(stack_t **stack, unsigned int line_number)
+{
+	stack_t *last = *stack;
+	stack_t *prev_last;
+
+	if (last)
+		prev_last = last->prev;
+	if (!last || !prev_last)
+	{
+		fprintf(stderr, "L%d: can't swap, stack too short\n",
+			line_number);
+		fflush(stderr);
+		exit_prog();
+		exit(EXIT_FAILURE);
+	}
+	prev_last->next = NULL;
+	last->next = prev_last;
+	last->prev = prev_last->prev;
+	prev_last->prev = last;
+	stack_top = prev_last;
+}

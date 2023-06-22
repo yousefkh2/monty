@@ -1,6 +1,27 @@
 #include "monty.h"
 
 /**
+ * is_valid_integer - check if a string is a valid integer
+ *
+ * @str: string to check
+ * Return: 1 if string is a valid integer, 0 otherwise
+ */
+
+int is_valid_integer(char *str)
+{
+	while (*str)
+	{
+		if (*str < '0' || *str > '9')
+		{
+			return (0);
+		}
+		str++;
+	}
+
+	return (1);
+}
+
+/**
  * push_f - push node to end of stack
  *
  * @stack: pointer to top node of stack
@@ -12,7 +33,7 @@ void push_f(stack_t **stack, unsigned int line_number)
 {
 	stack_t *node;
 
-	if (atoi(opcode_value) == 0 && *opcode_value != '0')
+	if (!is_valid_integer(opcode_value))
 	{
 		fprintf(stderr, "L%d: usage: push integer\n", line_number);
 		exit_prog();
@@ -96,32 +117,4 @@ void pop_f(stack_t **stack, unsigned int line_number)
 	free(tmp);
 }
 
-/**
- * swap_f - swap last top two nodes
- *
- * @stack: pointer to top node of stack
- * @line_number: current opcode line number
- * Return: None
- */
 
-void swap_f(stack_t **stack, unsigned int line_number)
-{
-	stack_t *last = *stack;
-	stack_t *prev_last;
-
-	if (last)
-		prev_last = last->prev;
-	if (!last || !prev_last)
-	{
-		fprintf(stderr, "L%d: can't swap, stack too short\n",
-			line_number);
-		fflush(stderr);
-		exit_prog();
-		exit(EXIT_FAILURE);
-	}
-	prev_last->next = NULL;
-	last->next = prev_last;
-	last->prev = prev_last->prev;
-	prev_last->prev = last;
-	stack_top = prev_last;
-}
