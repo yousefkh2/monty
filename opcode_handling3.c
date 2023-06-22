@@ -93,3 +93,38 @@ void swap_f(stack_t **stack, unsigned int line_number)
 	prev_last->prev = last;
 	stack_top = prev_last;
 }
+
+/**
+ * pchar_f - print char value
+ *
+ *
+ * @stack: pointer to top node of stack
+ * @line_number: current opcode line number
+ * Return: None
+ */
+
+void pchar_f(stack_t **stack, unsigned int line_number)
+{
+	stack_t *last = *stack;
+	int cur_val;
+
+	if (!last)
+	{
+		fprintf(stderr, "L%d: can't pchar, stack empty\n",
+			line_number);
+		exit_prog();
+		exit(EXIT_FAILURE);
+	}
+
+	cur_val = last->n;
+	if (cur_val > 96)
+		cur_val -= 32;
+	if (cur_val < 65 || last->n > 90)
+	{
+		fprintf(stderr,"L%d: can't pchar, value out of range",
+			line_number);
+		exit_prog();
+		exit(EXIT_FAILURE);
+	}
+	printf("%c\n", last->n);
+}
