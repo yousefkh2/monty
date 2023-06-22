@@ -124,3 +124,26 @@ void pchar_f(stack_t **stack, unsigned int line_number)
 	}
 	printf("%c\n", last->n);
 }
+
+/**
+ * pstr_f - print stack string
+ *
+ *
+ * @stack: pointer to top node of stack
+ * @line_number: current opcode line number
+ * Return: None
+ */
+
+void pstr_f(stack_t **stack, UNUSED unsigned int line_number)
+{
+	stack_t *last = *stack;
+
+	while (last)
+	{
+		if (last->n < 1 || last->n > 127)
+			break;
+		printf("%c", last->n);
+		last = last->prev;
+	}
+	printf("\n");
+}

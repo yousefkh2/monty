@@ -13,6 +13,7 @@ instruction_t opcodes_arr[] = {
 	{"mod", mod_f},
 	{"nop", nop_f},
 	{"pchar", pchar_f},
+	{"pstr_f", pstr_f},
 	{"#", nop_f},
 	{"\n", nop_f},
 	{NULL, NULL}
