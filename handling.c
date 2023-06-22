@@ -11,7 +11,7 @@
 FILE *handle_file(int argc, char **argv)
 {
 	FILE *file_stream;
-	char *file_name;
+	char *file_name = NULL;
 
 	if (argc != 2)
 	{
@@ -38,9 +38,9 @@ FILE *handle_file(int argc, char **argv)
 
 char *handle_line(FILE *file_stream)
 {
-	char *lineptr;
+	char *lineptr = NULL;
 	size_t buff_size = 0;
-	ssize_t bytesread;
+	ssize_t bytesread = 0;
 	int i = 0;
 
 	bytesread = getline(&lineptr, &buff_size, file_stream);

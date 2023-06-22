@@ -8,7 +8,7 @@
 
 void run(void)
 {
-	char *file_line;
+	char *file_line = NULL;
 	void (*op_func)(stack_t **, unsigned int);
 
 	file_line = handle_line(cmd.file_stream);
