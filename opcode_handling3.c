@@ -117,7 +117,7 @@ void pchar_f(stack_t **stack, unsigned int line_number)
 
 	if (last->n < 0 || last->n > 127)
 	{
-		fprintf(stderr,"L%d: can't pchar, value out of range\n",
+		fprintf(stderr, "L%d: can't pchar, value out of range\n",
 			line_number);
 		exit_prog();
 		exit(EXIT_FAILURE);
