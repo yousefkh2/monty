@@ -9,12 +9,14 @@
 
 int is_valid_integer(char *str)
 {
+	if (!str)
+		return (0);
+	if (*str == '-')
+		str++;
 	while (*str)
 	{
 		if (*str < '0' || *str > '9')
-		{
 			return (0);
-		}
 		str++;
 	}
 

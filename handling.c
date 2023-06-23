@@ -23,7 +23,7 @@ FILE *handle_file(int argc, char **argv)
 	file_stream = fopen(file_name, "r");
 	if (file_stream == NULL)
 	{
-		fprintf(stderr, "Error: can't open file %s\n", file_name);
+		fprintf(stderr, "Error: Can't open file %s\n", file_name);
 		exit(EXIT_FAILURE);
 	}
 	return (file_stream);
@@ -56,12 +56,9 @@ char *handle_line(FILE *file_stream)
 
 	strtok(lineptr, " \n");
 	opcode_value = strtok(NULL, " \n");
-	printf("current line: %s\n", opcode);
-	printf("current value: %s\n", opcode_value);
 	while (*(lineptr + i) == ' ')
 		i++;
 	opcode = (lineptr + i);
-
 	return (lineptr);
 }
 
