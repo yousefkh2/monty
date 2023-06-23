@@ -56,6 +56,8 @@ char *handle_line(FILE *file_stream)
 
 	strtok(lineptr, " \n");
 	opcode_value = strtok(NULL, " \n");
+	printf("current line: %s\n", opcode);
+	printf("current value: %s\n", opcode_value);
 	while (*(lineptr + i) == ' ')
 		i++;
 	opcode = (lineptr + i);
