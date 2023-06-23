@@ -16,6 +16,8 @@ instruction_t opcodes_arr[] = {
 	{"pstr_f", pstr_f},
 	{"rotl", rotl_f},
 	{"rotr", rotr_f},
+	{"stack", nop_f},
+	{"queue", nop_f},
 	{"#", nop_f},
 	{"\n", nop_f},
 	{NULL, NULL}
@@ -23,6 +25,7 @@ instruction_t opcodes_arr[] = {
 unsigned int line_number = 0;
 char *opcode_value = NULL;
 stack_t *stack_top = NULL;
+stack_t *stack_head = NULL;
 char *opcode = NULL;
 cmd_t cmd = {NULL, NULL};
 /**

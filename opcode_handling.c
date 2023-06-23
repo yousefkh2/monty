@@ -49,13 +49,18 @@ void push_f(stack_t **stack, unsigned int line_number)
 		exit_prog();
 		exit(EXIT_FAILURE);
 	}
-
 	node->n = atoi(opcode_value);
 	node->next = NULL;
 	node->prev = *stack;
-	if (*stack)
+	if (!*stack)
+	{
+		stack_head = node;
+		*stack = node;
+	} else
+	{
 		(*stack)->next = node;
-	*stack = node;
+		*stack = node;
+	}
 }
 
 /**

@@ -76,6 +76,10 @@ void (*get_op_func())(stack_t **, unsigned int)
 
 	if (*opcode == '#')
 		str_len = 1;
+	if (strcmp(opcode, "queue") == 0)
+		opcodes_arr[0].f =  qpush_f;
+	else if (strcmp(opcode, "stack") == 0)
+		opcodes_arr[0].f = push_f;
 	while (curr_opcodes[i].opcode)
 	{
 		if (strncmp(opcode, curr_opcodes[i].opcode, str_len) == 0)

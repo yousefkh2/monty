@@ -55,6 +55,7 @@ typedef struct cmd_s
 } cmd_t;
 
 extern stack_t *stack_top;
+extern stack_t *stack_head;
 extern instruction_t opcodes_arr[];
 extern unsigned int line_number;
 extern char *opcode_value;
@@ -67,7 +68,8 @@ void (*get_op_func())(stack_t **, unsigned int);
 
 void run(void);
 void exit_prog(void);
-
+int is_valid_integer(char *str);
+void qpush_f(stack_t **stack, unsigned int line);
 void push_f(stack_t **stack, unsigned int line);
 void pall_f(stack_t **staci, unsigned int line);
 void pint_f(stack_t **staci, unsigned int line);
